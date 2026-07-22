@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio — Paintings & Available Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   HOW TO CUSTOMIZE THIS SITE
+   1. Replace "Your Name" and bio text — search for [YOUR NAME] and [BIO].
+   2. Replace artwork placeholders: each .art-card has a .art-image div
+      with a background gradient. Swap it for <img src="your-file.jpg">.
+      Just drop your image files next to this index.html, e.g. images/piece-01.jpg
+   3. Edit the artwork list further down (title, year, medium, size, price/status).
+   4. Replace [EMAIL] and [INSTAGRAM] with your real contact details.
+   5. To add more artworks, copy one .art-card block and change its details.
+   ============================================================ */
+
+:root{
+  --paper: #FAFAF7;
+  --paper-dim: #F1EFE9;
+  --ink: #1C1B17;
+  --ink-soft: #6E6A5F;
+  --line: #DEDBD1;
+  --accent: #2F4C9E;      /* "ultramarine" — pigment-inspired accent */
+  --accent-soft: #E7EBF6;
+  --ochre: #B8863B;       /* second pigment accent, used sparingly */
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+body{
+  margin:0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, .display{
+  font-family: 'Fraunces', serif;
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.mono{
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 0.02em;
+}
+a{ color: inherit; }
+img{ max-width:100%; display:block; }
+
+/* focus visibility */
+a:focus-visible, button:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+.wrap{ max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* ---------- NAV ---------- */
+header{
+  position: sticky; top:0; z-index: 50;
+  background: rgba(250,250,247,0.88);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+nav.wrap{
+  display:flex; align-items:center; justify-content: space-between;
+  height: 76px;
+}
+.brand{
+  font-family:'Fraunces', serif;
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 450;
+  text-decoration:none;
+}
+.nav-links{ display:flex; gap: 36px; list-style:none; margin:0; padding:0; }
+.nav-links a{
+  text-decoration:none;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  transition: color .2s;
+}
+.nav-links a:hover{ color: var(--ink); }
+.nav-toggle{ display:none; background:none; border:none; cursor:pointer; }
+
+@media (max-width: 720px){
+  .nav-links{
+    position:absolute; top:76px; left:0; right:0;
+    flex-direction:column; gap:0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    max-height:0; overflow:hidden;
+    transition: max-height .3s ease;
+  }
+  .nav-links.open{ max-height:300px; }
+  .nav-links a{ padding: 16px 32px; border-top:1px solid var(--line); }
+  .nav-toggle{ display:block; }
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  padding: 120px 0 90px;
+  border-bottom: 1px solid var(--line);
+}
+.hero .eyebrow{
+  font-size: 0.78rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 22px;
+}
+.hero h1{
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  max-width: 15ch;
+  line-height: 1.05;
+}
+.hero h1 em{
+  font-style: italic;
+  color: var(--accent);
+}
+.hero p{
+  margin-top: 28px;
+  max-width: 46ch;
+  color: var(--ink-soft);
+  font-size: 1.05rem;
+}
+.hero .cta-row{ margin-top: 40px; display:flex; gap:18px; flex-wrap:wrap; }
+.btn{
+  display:inline-block;
+  padding: 13px 26px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-decoration:none;
+  border: 1px solid var(--ink);
+  transition: background .2s, color .2s;
+}
+.btn.primary{ background: var(--ink); color: var(--paper); }
+.btn.primary:hover{ background: var(--accent); border-color: var(--accent); }
+.btn.ghost:hover{ background: var(--ink); color: var(--paper); }
+
+/* ---------- SECTION HEADERS ---------- */
+.section{ padding: 90px 0; }
+.section-head{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap: 24px; margin-bottom: 48px; flex-wrap: wrap;
+}
+.section-head .eyebrow{
+  font-size: 0.78rem; color: var(--accent);
+  text-transform:uppercase; letter-spacing:0.14em; margin-bottom:10px;
+}
+.section-head h2{ font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+
+/* ---------- FILTERS ---------- */
+.filters{ display:flex; gap: 10px; flex-wrap: wrap; }
+.filter-btn{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: none;
+  border: 1px solid var(--line);
+  padding: 9px 16px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  transition: all .2s;
+}
+.filter-btn:hover{ border-color: var(--ink); color: var(--ink); }
+.filter-btn.active{ background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+/* ---------- GALLERY GRID ---------- */
+.gallery-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px 32px;
+}
+@media (max-width: 900px){ .gallery-grid{ grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 600px){ .gallery-grid{ grid-template-columns: 1fr; } }
+
+.art-card{ cursor: pointer; }
+.art-image{
+  width:100%; aspect-ratio: 4/5;
+  background-size: cover; background-position:center;
+  border: 1px solid var(--line);
+  transition: opacity .25s;
+}
+.art-card:hover .art-image{ opacity: 0.88; }
+
+/* placard — the museum-label signature element */
+.placard{
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.placard .p-title{
+  font-family:'Fraunces', serif; font-style: italic;
+  font-size: 1.02rem;
+}
+.placard .p-meta{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  display:flex; justify-content: space-between; gap: 10px;
+}
+.status{
+  font-family:'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+.status.forsale{ background: var(--accent-soft); color: var(--accent); }
+.status.inquire{ background: #F5EEDF; color: var(--ochre); }
+.status.display{ background: var(--paper-dim); color: var(--ink-soft); }
+
+/* ---------- LIGHTBOX ---------- */
+.lightbox{
+  position: fixed; inset:0; background: rgba(28,27,23,0.94);
+  display:none; align-items:center; justify-content:center;
+  z-index: 100; padding: 32px;
+}
+.lightbox.open{ display:flex; }
+.lightbox-inner{
+  background: var(--paper);
+  max-width: 880px; width:100%;
+  max-height: 90vh; overflow:auto;
+  display:grid; grid-template-columns: 1.2fr 1fr;
+}
+@media (max-width: 720px){ .lightbox-inner{ grid-template-columns: 1fr; } }
+.lightbox-img{ width:100%; height:100%; min-height:280px; background-size:cover; background-position:center; }
+.lightbox-info{ padding: 36px; position:relative; }
+.lightbox-info h3{ font-size: 1.5rem; font-style:italic; }
+.lightbox-info .p-meta{
+  font-family:'JetBrains Mono', monospace; font-size:0.74rem; color:var(--ink-soft);
+  text-transform:uppercase; margin-top:10px; line-height:2;
+}
+.lightbox-info p{ margin-top: 18px; color: var(--ink-soft); font-size:0.94rem; }
+.lightbox-close{
+  position:absolute; top:20px; right:20px;
+  background:none; border:none; font-size:1.4rem; cursor:pointer; color: var(--ink-soft);
+}
+
+/* ---------- EXHIBITIONS ---------- */
+.exhibit-list{ border-top: 1px solid var(--line); }
+.exhibit-row{
+  display:flex; align-items:center; gap: 28px;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration:none; color: var(--ink);
+  transition: opacity .2s;
+}
+.exhibit-row:hover{ opacity: 0.6; }
+.exhibit-row:hover .exhibit-link{ color: var(--accent); }
+.exhibit-dates{
+  font-size: 0.74rem; text-transform: uppercase; color: var(--ink-soft);
+  white-space: nowrap; min-width: 150px;
+}
+.exhibit-main{ flex: 1; }
+.exhibit-title{ font-family:'Fraunces', serif; font-style: italic; font-size: 1.15rem; }
+.exhibit-venue{ font-size: 0.88rem; color: var(--ink-soft); margin-top: 4px; }
+.exhibit-link{
+  font-size: 0.72rem; text-transform: uppercase; color: var(--ink-soft);
+  white-space: nowrap; transition: color .2s;
+}
+@media (max-width: 640px){
+  .exhibit-row{ flex-wrap: wrap; gap: 6px; padding: 20px 0; }
+  .exhibit-dates{ min-width: unset; order: 1; }
+  .exhibit-main{ order: 2; width: 100%; }
+  .exhibit-link{ order: 3; }
+}
+
+/* ---------- ABOUT ---------- */
+.about{ background: var(--paper-dim); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.about-grid{ display:grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items:center; }
+@media (max-width: 780px){ .about-grid{ grid-template-columns: 1fr; } }
+.about-image{
+  aspect-ratio: 4/5;
+  background: linear-gradient(150deg, #C9C2AE, #8C887F);
+  border: 1px solid var(--line);
+}
+.about-text p{ color: var(--ink-soft); margin-top: 18px; max-width: 56ch; }
+.about-text .eyebrow{
+  font-size: 0.78rem; color: var(--accent); text-transform:uppercase; letter-spacing:0.14em; margin-bottom:14px;
+}
+
+/* ---------- CONTACT ---------- */
+.contact-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+@media (max-width: 780px){ .contact-grid{ grid-template-columns: 1fr; } }
+.field{ margin-bottom: 22px; }
+.field label{
+  display:block; font-family:'JetBrains Mono', monospace; font-size:0.7rem;
+  text-transform:uppercase; letter-spacing:0.06em; color: var(--ink-soft); margin-bottom:8px;
+}
+.field input, .field textarea{
+  width:100%; border:none; border-bottom: 1px solid var(--line);
+  background: none; padding: 10px 0; font-family:'Inter', sans-serif; font-size: 0.98rem;
+  color: var(--ink);
+}
+.field input:focus, .field textarea:focus{ outline:none; border-bottom-color: var(--accent); }
+.contact-direct{ }
+.contact-direct .eyebrow{ font-size:0.78rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.14em; margin-bottom: 14px;}
+.contact-direct a{ text-decoration:none; }
+.contact-line{ display:flex; justify-content:space-between; padding: 16px 0; border-top: 1px solid var(--line); }
+.contact-line:last-child{ border-bottom: 1px solid var(--line); }
+.contact-line span:first-child{ font-family:'JetBrains Mono', monospace; font-size:0.72rem; text-transform:uppercase; color:var(--ink-soft); }
+
+/* ---------- FOOTER ---------- */
+footer{ padding: 40px 0; }
+footer .wrap{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap: 12px; }
+footer p{ font-size:0.78rem; color: var(--ink-soft); }
+
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand">Anna Semenoff</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#exhibitions">Exhibitions</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="eyebrow">Oil & mixed media on canvas</div>
+    <h1>Trying to paint a little bit better than I did yesterday.</h1>
+    <p>This is a running collection of finished work. Some available to take home, some just here to be seen.</p>
+    <div class="cta-row">
+      <a href="#gallery" class="btn primary">View the gallery</a>
+      <a href="#contact" class="btn ghost">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Selected Works</div>
+        <h2>Gallery & work for sale</h2>
+      </div>
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="forsale">For sale</button>
+        <button class="filter-btn" data-filter="inquire">Inquire</button>
+        <button class="filter-btn" data-filter="display">Display only</button>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="galleryGrid">
+      <!-- Each block below is one painting. Copy/paste to add more. -->
+
+      <div class="art-card" data-status="forsale"
+        data-title="Baba's Light" data-year="2026" data-medium="Oil on canvas" data-size="NAcm"
+        data-price="$NA" data-note="A study of warmth and familiarity, made in one session. With love in mind.">
+        <div class="art-image" style="background-image: url('piece-01.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Baba's Light</div>
+          <div class="p-meta">
+            <span>2026 — Oil on canvas</span>
+            <span class="status forsale">$NA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="display"
+        data-title="Guitar Man" data-year="2025" data-medium="Oil on board" data-size="18 x 24"
+        data-price="Not for sale" data-note="Sold — included here as part of the ongoing body of work.">
+        <div class="art-image" style="background-image: url('piece-02.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Guitar Man</div>
+          <div class="p-meta">
+            <span>2025 — Oil on board</span>
+            <span class="status display">Sold</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="display"
+        data-title="Trust Me" data-year="2026" data-medium="Oil on canvas" data-size="30 x 30"
+        data-price="Inquire" data-note="Sold">
+        <div class="art-image" style="background-image: url('piece-03.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Trust Me</div>
+          <div class="p-meta">
+            <span>2026 — Oil on canvas</span>
+            <span class="status inquire">Sold</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Underbelly" data-year="2025" data-medium="Oil on board" data-size="24 x 36"
+        data-price="$600" data-note="Study for a larger painting.">
+        <div class="art-image" style="background-image: url('piece-04.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Underbelly</div>
+          <div class="p-meta">
+            <span>2025 — Oil</span>
+            <span class="status forsale">$NA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Awkward" data-year="2026" data-medium="Oil on canvas" data-size="NA"
+        data-price="$NA" data-note="Painted from memory of myself at an amusment park.">
+        <div class="art-image" style="background-image: url('piece-05.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Awkward</div>
+          <div class="p-meta">
+            <span>2026 — Oil on canvas</span>
+            <span class="status forsale">$NA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Potato Eaters" data-year="2026" data-medium="Oil on Canvas" data-size="NA"
+        data-price="$NA" data-note="The last painting of my most recent Exhibition On Reflection at Grand Forks Art Gallery.">
+        <div class="art-image" style="background-image: url('piece-06.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Potato Eaters</div>
+          <div class="p-meta">
+            <span>2026 — Oil</span>
+            <span class="status display">$NA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="display"
+        data-title="Untitled" data-year="2025" data-medium="Acrylic on Board" data-size="NA"
+        data-price="Sold" data-note="Sold at an auction in early 20205. Finished in one fast session.">
+        <div class="art-image" style="background-image: url('piece-07.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Untitled</div>
+          <div class="p-meta">
+            <span>2025 — Acrlic</span>
+            <span class="status display">Sold</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Hugs for Myself" data-year="2026" data-medium="Oil on Canvas" data-size="64 x ..."
+        data-price="[Price]" data-note="A version of a self portrait.">
+        <div class="art-image" style="background-image: url('piece-08.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Hugs for Myself</div>
+          <div class="p-meta">
+            <span>2026 — Oil</span>
+            <span class="status forsale">$2300</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Between Palms" data-year="2025" data-medium="Oil on Canvas" data-size="64 x ..."
+        data-price="$2300" data-note="Layers of paintings, the longest i've spent on a painting.">
+        <div class="art-image" style="background-image: url('piece-09.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Between Palms</div>
+          <div class="p-meta">
+            <span>2025 — Oil</span>
+            <span class="status forsale">$2300</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Erosion Study" data-year="2026" data-medium="Oil on Canvas" data-size="36 x 36"
+        data-price="[Price]" data-note="A study on Reflection, there is real hair in this painting.">
+        <div class="art-image" style="background-image: url('piece-10.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Erosion Study</div>
+          <div class="p-meta">
+            <span>2025 — Oil</span>
+            <span class="status forsale">$NA</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section" id="exhibitions">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Exhibitions</div>
+        <h2>Where the work has shown</h2>
+      </div>
+    </div>
+    <div class="exhibit-list">
+      <a href="https://www.gfag.ca/blog/Anna-Semenoff--In-Response.htm" target="_blank" rel="noopener" class="exhibit-row">
+        <div class="exhibit-dates mono">May 9 – Aug 15, 2026</div>
+        <div class="exhibit-main">
+          <div class="exhibit-title">In Response</div>
+          <div class="exhibit-venue">Gallery 2 — Grand Forks Art Gallery, Central Gallery</div>
+        </div>
+        <div class="exhibit-link mono">View exhibition ↗</div>
+      </a>
+      <!-- Copy the block above to add more exhibitions. Update the link, dates, title, and venue. -->
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap section">
+    <div class="about-grid">
+      <div class="about-image" style="background-image: url('piece-11.jpg'); background-size: cover; background-position: center;"></div>
+      <div class="about-text">
+        <div class="eyebrow">About</div>
+        <h2>Anna Semenoff</h2>
+        <p>Deeply influenced by the people around her, Annas practice explores questions of the human condition. Working through abstract and figurative oil painting, she processes and reflects on personal narratives. As this inquiry continues, her work expands into larger-scale painting, where refined composition and physical movement become central to creating a distinct spatial presence around the work.</p>
+        <p>Based in Kelowna. Available for commissions and studio visits by appointment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Get in touch</div>
+        <h2>Commissions & inquiries</h2>
+      </div>
+    </div>
+    <div class="contact-grid">
+      <form id="contactForm">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" required>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn primary">Send message</button>
+      </form>
+      <div class="contact-direct">
+        <div class="eyebrow">Direct</div>
+        <div class="contact-line"><span>Email</span><a href="mailto:[annasemm2003@gmail.com]">annasemm2003@gmail.com</a></div>
+        <div class="contact-line"><span>Instagram</span><a href="https://instagram.com/[annadoespainting]" target="_blank" rel="noopener">@annadoespainting</a></div>
+        <div class="contact-line"><span>Location</span><span>Kelowna</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© <span id="year"></span> Anna Semenoff. All works shown remain the artist's property until sold.</p>
+    <p>Site built for Anna Semenoff</p>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <div class="lightbox-img" id="lightboxImg"></div>
+    <div class="lightbox-info">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
+      <h3 id="lbTitle"></h3>
+      <div class="p-meta" id="lbMeta"></div>
+      <p id="lbNote"></p>
+      <div class="cta-row" style="margin-top:24px;">
+        <a href="#" id="lbCta" class="btn primary">Inquire about this piece</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// mobile nav toggle
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navLinks').classList.toggle('open');
+});
+
+// filters
+const cards = document.querySelectorAll('.art-card');
+document.getElementById('filters').addEventListener('click', (e) => {
+  if (!e.target.matches('.filter-btn')) return;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  const filter = e.target.dataset.filter;
+  cards.forEach(card => {
+    const show = filter === 'all' || card.dataset.status === filter;
+    card.style.display = show ? '' : 'none';
+  });
+});
+
+// lightbox
+const lightbox = document.getElementById('lightbox');
+cards.forEach(card => {
+  card.addEventListener('click', () => {
+    const img = card.querySelector('.art-image').style.backgroundImage;
+    document.getElementById('lightboxImg').style.backgroundImage = img;
+    document.getElementById('lbTitle').textContent = card.dataset.title;
+    document.getElementById('lbMeta').innerHTML =
+      `${card.dataset.year} — ${card.dataset.medium}<br>${card.dataset.size}<br>${card.dataset.price}`;
+    document.getElementById('lbNote').textContent = card.dataset.note;
+    const cta = document.getElementById('lbCta');
+    cta.href = `mailto:annasemm2003@gmail.com?subject=Inquiry: ${encodeURIComponent(card.dataset.title)}`;
+    cta.textContent = card.dataset.status === 'display' ? 'Ask about this piece' : 'Inquire about this piece';
+    lightbox.classList.add('open');
+  });
+});
+document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+// contact form -> opens mail client with prefilled message
+document.getElementById('contactForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const message = document.getElementById('message').value;
+  const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+  window.location.href = `mailto:annasemm2003@gmail.com?subject=Website inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
+});
+</script>
+
+</body>
+</html>
