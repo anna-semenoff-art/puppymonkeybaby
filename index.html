@@ -257,6 +257,33 @@ nav.wrap{
   background:none; border:none; font-size:1.4rem; cursor:pointer; color: var(--ink-soft);
 }
 
+/* ---------- SKETCHBOOK ---------- */
+.sketchbook-section{ background: var(--paper-dim); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sketchbook-note{ margin-top: 10px; color: var(--ink-soft); font-size: 0.92rem; max-width: 48ch; }
+.sketchbook-grid{
+  display:grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+@media (max-width: 900px){ .sketchbook-grid{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px){ .sketchbook-grid{ grid-template-columns: repeat(2, 1fr); } }
+.sketch-card{ opacity: 0.92; transition: opacity .2s; }
+.sketch-card:hover{ opacity: 1; }
+.sketch-image{
+  width:100%; aspect-ratio: 1/1;
+  background-size: cover; background-position:center;
+  border: 1px solid var(--line);
+  filter: grayscale(15%);
+}
+.sketch-caption{
+  margin-top: 8px;
+  font-family:'JetBrains Mono', monospace;
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
 /* ---------- EXHIBITIONS ---------- */
 .exhibit-list{ border-top: 1px solid var(--line); }
 .exhibit-row{
@@ -335,6 +362,7 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
     <a href="#top" class="brand">Anna Semenoff</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#sketchbook">Sketchbook</a></li>
       <li><a href="#exhibitions">Exhibitions</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -374,79 +402,79 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
       <!-- Each block below is one painting. Copy/paste to add more. -->
 
       <div class="art-card" data-status="forsale"
-        data-title="Baba's Light" data-year="2026" data-medium="Oil on canvas" data-size="NAcm"
-        data-price="$NA" data-note="A study of warmth and familiarity, made in one session. With love in mind.">
+        data-title="Baba's Light" data-year="2026" data-medium="Oil on canvas" data-size="24 x 36in"
+        data-price="$900" data-note="A study of warmth and familiarity, made in one session. With love in mind.">
         <div class="art-image" style="background-image: url('piece-01.jpg');"></div>
         <div class="placard">
           <div class="p-title">Baba's Light</div>
           <div class="p-meta">
             <span>2026 — Oil on canvas</span>
-            <span class="status forsale">$NA</span>
+            <span class="status forsale">$900</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="display"
-        data-title="Guitar Man" data-year="2025" data-medium="Oil on board" data-size="18 x 24"
+        data-title="Guitar Man" data-year="2025" data-medium="Mixed Media on board" data-size="18 x 24in"
         data-price="Not for sale" data-note="Sold — included here as part of the ongoing body of work.">
         <div class="art-image" style="background-image: url('piece-02.jpg');"></div>
         <div class="placard">
           <div class="p-title">Guitar Man</div>
           <div class="p-meta">
-            <span>2025 — Oil on board</span>
+            <span>2025 — Mixed Media on board</span>
             <span class="status display">Sold</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="display"
-        data-title="Trust Me" data-year="2026" data-medium="Oil on canvas" data-size="30 x 30"
-        data-price="Inquire" data-note="Sold">
+        data-title="Trust Me" data-year="2026" data-medium="Oil on canvas" data-size="30 x 30in"
+        data-price="Not for sale" data-note="Sold">
         <div class="art-image" style="background-image: url('piece-03.jpg');"></div>
         <div class="placard">
           <div class="p-title">Trust Me</div>
           <div class="p-meta">
             <span>2026 — Oil on canvas</span>
-            <span class="status inquire">Sold</span>
+            <span class="status display">Sold</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="forsale"
-        data-title="Underbelly" data-year="2025" data-medium="Oil on board" data-size="24 x 36"
+        data-title="Underbelly" data-year="2025" data-medium="Oil on board" data-size="36 x 24in"
         data-price="$600" data-note="Study for a larger painting.">
         <div class="art-image" style="background-image: url('piece-04.jpg');"></div>
         <div class="placard">
           <div class="p-title">Underbelly</div>
           <div class="p-meta">
-            <span>2025 — Oil</span>
-            <span class="status forsale">$NA</span>
+            <span>2025 — Oil on canvas</span>
+            <span class="status forsale">$600</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="forsale"
-        data-title="Awkward" data-year="2026" data-medium="Oil on canvas" data-size="NA"
-        data-price="$NA" data-note="Painted from memory of myself at an amusment park.">
+        data-title="Awkward" data-year="2026" data-medium="Oil on canvas" data-size="30 x 24in"
+        data-price="$750" data-note="Painted from a memory of myself at an amusment park.">
         <div class="art-image" style="background-image: url('piece-05.jpg');"></div>
         <div class="placard">
           <div class="p-title">Awkward</div>
           <div class="p-meta">
             <span>2026 — Oil on canvas</span>
-            <span class="status forsale">$NA</span>
+            <span class="status forsale">$750</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="forsale"
-        data-title="Potato Eaters" data-year="2026" data-medium="Oil on Canvas" data-size="NA"
-        data-price="$NA" data-note="The last painting of my most recent Exhibition On Reflection at Grand Forks Art Gallery.">
+        data-title="Potato Eaters" data-year="2026" data-medium="Mixed media on Canvas" data-size="28 x 22in"
+        data-price="$400" data-note="The last painting of my most recent Exhibition On Reflection at Grand Forks Art Gallery.">
         <div class="art-image" style="background-image: url('piece-06.jpg');"></div>
         <div class="placard">
           <div class="p-title">Potato Eaters</div>
           <div class="p-meta">
-            <span>2026 — Oil</span>
-            <span class="status display">$NA</span>
+            <span>2026 — Mixed media on canvas</span>
+            <span class="status forsale">$400</span>
           </div>
         </div>
       </div>
@@ -458,53 +486,184 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         <div class="placard">
           <div class="p-title">Untitled</div>
           <div class="p-meta">
-            <span>2025 — Acrlic</span>
+            <span>2025 — Acrlic on board</span>
             <span class="status display">Sold</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="forsale"
-        data-title="Hugs for Myself" data-year="2026" data-medium="Oil on Canvas" data-size="64 x ..."
-        data-price="[Price]" data-note="A version of a self portrait.">
+        data-title="Hugs for Myself" data-year="2026" data-medium="Oil on Canvas" data-size="64in x NA"
+        data-price="$2300" data-note="A collage of self portraits.">
         <div class="art-image" style="background-image: url('piece-08.jpg');"></div>
         <div class="placard">
           <div class="p-title">Hugs for Myself</div>
           <div class="p-meta">
-            <span>2026 — Oil</span>
+            <span>2026 — Oil on canvas</span>
             <span class="status forsale">$2300</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="forsale"
-        data-title="Between Palms" data-year="2025" data-medium="Oil on Canvas" data-size="64 x ..."
+        data-title="Between Palms" data-year="2025" data-medium="Oil on Canvas" data-size="57 x 47in"
         data-price="$2300" data-note="Layers of paintings, the longest i've spent on a painting.">
         <div class="art-image" style="background-image: url('piece-09.jpg');"></div>
         <div class="placard">
           <div class="p-title">Between Palms</div>
           <div class="p-meta">
-            <span>2025 — Oil</span>
+            <span>2025 — Oil on canvas</span>
             <span class="status forsale">$2300</span>
           </div>
         </div>
       </div>
 
       <div class="art-card" data-status="forsale"
-        data-title="Erosion Study" data-year="2026" data-medium="Oil on Canvas" data-size="36 x 36"
-        data-price="[Price]" data-note="A study on Reflection, there is real hair in this painting.">
+        data-title="Where I Keep You" data-year="2026" data-medium="Oil on Canvas" data-size="36 x 36in"
+        data-price="$750" data-note="A study on Reflection, there is hair from my brush in the painting.">
         <div class="art-image" style="background-image: url('piece-10.jpg');"></div>
         <div class="placard">
-          <div class="p-title">Erosion Study</div>
+          <div class="p-title">Where I Keep You</div>
           <div class="p-meta">
-            <span>2025 — Oil</span>
-            <span class="status forsale">$NA</span>
+            <span>2025 — Oil on canvas</span>
+            <span class="status forsale">$750</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Untitled 1" data-year="2026" data-medium="Oil on Canvas" data-size="36 x 24in"
+        data-price="$500" data-note="Made in January 2026.">
+        <div class="art-image" style="background-image: url('piece-12.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Untitled 1</div>
+          <div class="p-meta">
+            <span>2026 — Oil on canvas</span>
+            <span class="status forsale">$500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Erosion" data-year="2025" data-medium="Oil on Canvas" data-size="30 x 40in"
+        data-price="$600" data-note="It started as a self portrait.">
+        <div class="art-image" style="background-image: url('piece-13.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Erosion</div>
+          <div class="p-meta">
+            <span>2025 — Oil on canvas</span>
+            <span class="status forsale">$600</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Untitled 2" data-year="2025" data-medium="Mixed Media on Canvas" data-size="24 x 30in"
+        data-price="$500" data-note="Made in early 2026, spray paint, oil stick and oil paint on canvas.">
+        <div class="art-image" style="background-image: url('piece-14.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Untitled 2</div>
+          <div class="p-meta">
+            <span>2026 — Mixed Media on Canvas</span>
+            <span class="status forsale">$500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="We Need to Talk" data-year="2026" data-medium="Oil on Canvas" data-size="30 x 24in"
+        data-price="$750" data-note="An encounter on canvas.">
+        <div class="art-image" style="background-image: url('piece-15.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">We Need to Talk</div>
+          <div class="p-meta">
+            <span>2026 — Oil on canvas</span>
+            <span class="status forsale">$750</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Sickeningly Sweet" data-year="2026" data-medium="Oil on Board" data-size="48 x 78in"
+        data-price="$1500" data-note="One of the largest paintings I have made.">
+        <div class="art-image" style="background-image: url('piece-16.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Sickeningly Sweet</div>
+          <div class="p-meta">
+            <span>2026 — Oil on board</span>
+            <span class="status forsale">$1500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="Beet Ruth" data-year="2026" data-medium="Mixed Media on Canvas" data-size="30 x 24in"
+        data-price="$800" data-note="Made with oil and acrylic.">
+        <div class="art-image" style="background-image: url('piece-17.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">Beet Ruth</div>
+          <div class="p-meta">
+            <span>2026 — Mixed Media on canvas</span>
+            <span class="status forsale">$800</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card" data-status="forsale"
+        data-title="On the Same Page" data-year="2026" data-medium="Mixed Media on Canvas" data-size="30 x 24in"
+        data-price="$800" data-note="One of my favourites.">
+        <div class="art-image" style="background-image: url('piece-18.jpg');"></div>
+        <div class="placard">
+          <div class="p-title">On the Same Page</div>
+          <div class="p-meta">
+            <span>2026 — Mixed Media on canvas</span>
+            <span class="status forsale">$800</span>
           </div>
         </div>
       </div>
 
     </div>
   </div>
+</section>
+
+<section class="section sketchbook-section" id="sketchbook">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Sketchbook</div>
+        <h2>Browse the past</h2>
+        <p class="sketchbook-note">Informal studies, sketches, and older work — not for sale, shown here for context.</p>
+      </div>
+    </div>
+    <div class="sketchbook-grid">
+      <!-- Each block is one sketch/older piece. Copy to add more. Smaller, no price tags on purpose. -->
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-01.jpg');"></div>
+        <div class="sketch-caption">Pastel, 2024</div>
+      </div>
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-02.jpg');"></div>
+        <div class="sketch-caption">Graphite,2022</div>
+      </div>
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-03.jpg');"></div>
+        <div class="sketch-caption">Collage, Chine Colle, Monoprint, Stencil 2024</div>
+      </div>
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-04.jpg');"></div>
+        <div class="sketch-caption">Chalk Pastel, 2022</div>
+      </div>      
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-05.jpg');"></div>
+        <div class="sketch-caption">UV Screen Print, 2023</div>
+      </div>      
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-06.jpg');"></div>
+        <div class="sketch-caption">Chalk Pastel Oil Pastel, 2023</div>
+      </div>      
+      <div class="sketch-card">
+        <div class="sketch-image" style="background-image: url('sketch-07.jpg');"></div>
+        <div class="sketch-caption">Chine Colle, Monoprint 2024</div>
 </section>
 
 <section class="section" id="exhibitions">
@@ -536,8 +695,8 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
       <div class="about-text">
         <div class="eyebrow">About</div>
         <h2>Anna Semenoff</h2>
-        <p>Deeply influenced by the people around her, Annas practice explores questions of the human condition. Working through abstract and figurative oil painting, she processes and reflects on personal narratives. As this inquiry continues, her work expands into larger-scale painting, where refined composition and physical movement become central to creating a distinct spatial presence around the work.</p>
-        <p>Based in Kelowna. Available for commissions and studio visits by appointment.</p>
+        <p>Anna was raised in Grand Forks, British Columbia and now works and Lives in Kelowna, BC. Deeply influenced by the people around her, Annas practice explores questions of the human condition. Working through abstract and figurative oil painting, she processes and reflects on personal narratives. As this inquiry continues, her work expands into larger-scale painting, where refined composition and physical movement become central to creating a distinct spatial presence around the work.</p>
+        <p>Available for commissions and studio visits by appointment.</p>
       </div>
     </div>
   </div>
