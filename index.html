@@ -3,21 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Studio — Paintings & Available Works</title>
+<title>Anna Semenoff — Painter, Kelowna BC</title>
+<meta name="description" content="Oil and mixed media paintings by Anna Semenoff, a painter based in Kelowna, BC. Browse available works, past studies, and exhibitions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
-/* ============================================================
-   HOW TO CUSTOMIZE THIS SITE
-   1. Replace "Your Name" and bio text — search for [YOUR NAME] and [BIO].
-   2. Replace artwork placeholders: each .art-card has a .art-image div
-      with a background gradient. Swap it for <img src="your-file.jpg">.
-      Just drop your image files next to this index.html, e.g. images/piece-01.jpg
-   3. Edit the artwork list further down (title, year, medium, size, price/status).
-   4. Replace [EMAIL] and [INSTAGRAM] with your real contact details.
-   5. To add more artworks, copy one .art-card block and change its details.
-   ============================================================ */
 
 :root{
   --paper: #FAFAF7;
@@ -55,7 +45,7 @@ a{ color: inherit; }
 img{ max-width:100%; display:block; }
 
 /* focus visibility */
-a:focus-visible, button:focus-visible{
+a:focus-visible, button:focus-visible, .art-card:focus-visible{
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
@@ -106,7 +96,7 @@ nav.wrap{
     transition: max-height .3s ease;
   }
   .nav-links.open{ max-height:300px; }
-  .nav-links a{ padding: 16px 32px; border-top:1px solid var(--line); }
+  .nav-links a{ display:block; padding: 16px 32px; border-top:1px solid var(--line); }
   .nav-toggle{ display:block; }
 }
 
@@ -148,7 +138,7 @@ nav.wrap{
   border: 1px solid var(--ink);
   transition: background .2s, color .2s;
 }
-.btn.primary{ background: var(--ink); color: var(--paper); }
+.btn.primary{ background: var(--ink); color: var(--paper); cursor: pointer; }
 .btn.primary:hover{ background: var(--accent); border-color: var(--accent); }
 .btn.ghost:hover{ background: var(--ink); color: var(--paper); }
 
@@ -193,7 +183,8 @@ nav.wrap{
 .art-card{ cursor: pointer; }
 .art-image{
   width:100%; aspect-ratio: 4/5;
-  background-size: cover; background-position:center;
+  object-fit: cover; object-position: center;
+  background: var(--paper-dim);
   border: 1px solid var(--line);
   transition: opacity .25s;
 }
@@ -227,7 +218,6 @@ nav.wrap{
   white-space: nowrap;
 }
 .status.forsale{ background: var(--accent-soft); color: var(--accent); }
-.status.inquire{ background: #F5EEDF; color: var(--ochre); }
 .status.display{ background: var(--paper-dim); color: var(--ink-soft); }
 
 /* ---------- LIGHTBOX ---------- */
@@ -244,7 +234,7 @@ nav.wrap{
   display:grid; grid-template-columns: 1.2fr 1fr;
 }
 @media (max-width: 720px){ .lightbox-inner{ grid-template-columns: 1fr; } }
-.lightbox-img{ width:100%; height:100%; min-height:280px; background-size:cover; background-position:center; }
+.lightbox-img{ width:100%; height:100%; min-height:280px; object-fit:cover; object-position:center; background: var(--paper-dim); }
 .lightbox-info{ padding: 36px; position:relative; }
 .lightbox-info h3{ font-size: 1.5rem; font-style:italic; }
 .lightbox-info .p-meta{
@@ -271,7 +261,8 @@ nav.wrap{
 .sketch-card:hover{ opacity: 1; }
 .sketch-image{
   width:100%; aspect-ratio: 1/1;
-  background-size: cover; background-position:center;
+  object-fit: cover; object-position:center;
+  background: var(--paper);
   border: 1px solid var(--line);
   filter: grayscale(15%);
 }
@@ -318,7 +309,8 @@ nav.wrap{
 .about-grid{ display:grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items:center; }
 @media (max-width: 780px){ .about-grid{ grid-template-columns: 1fr; } }
 .about-image{
-  aspect-ratio: 4/5;
+  width:100%; aspect-ratio: 4/5;
+  object-fit: cover; object-position: center;
   background: linear-gradient(150deg, #C9C2AE, #8C887F);
   border: 1px solid var(--line);
 }
@@ -341,7 +333,7 @@ nav.wrap{
   color: var(--ink);
 }
 .field input:focus, .field textarea:focus{ outline:none; border-bottom-color: var(--accent); }
-.contact-direct{ }
+.form-status{ margin-top: 16px; font-size: 0.9rem; color: var(--ink-soft); }
 .contact-direct .eyebrow{ font-size:0.78rem; color:var(--accent); text-transform:uppercase; letter-spacing:0.14em; margin-bottom: 14px;}
 .contact-direct a{ text-decoration:none; }
 .contact-line{ display:flex; justify-content:space-between; padding: 16px 0; border-top: 1px solid var(--line); }
@@ -367,7 +359,7 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">☰</button>
   </nav>
 </header>
 
@@ -393,18 +385,18 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
       <div class="filters" id="filters">
         <button class="filter-btn active" data-filter="all">All</button>
         <button class="filter-btn" data-filter="forsale">For sale</button>
-        <button class="filter-btn" data-filter="inquire">Inquire</button>
         <button class="filter-btn" data-filter="display">Display only</button>
       </div>
     </div>
 
     <div class="gallery-grid" id="galleryGrid">
-      <!-- Each block below is one painting. Copy/paste to add more. -->
+      <!-- Each block below is one painting. Copy/paste to add more.
+           Leave data-size="" if you don't want a size shown. -->
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Baba's Light" data-year="2026" data-medium="Oil on canvas" data-size="24 x 36in"
         data-price="$900" data-note="A study of warmth and familiarity, made in one session. With love in mind.">
-        <div class="art-image" style="background-image: url('piece-01.jpg');"></div>
+        <img class="art-image" src="piece-01.jpg" alt="Baba's Light, oil on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Baba's Light</div>
           <div class="p-meta">
@@ -414,10 +406,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="display"
+      <div class="art-card" data-status="display" tabindex="0" role="button"
         data-title="Guitar Man" data-year="2025" data-medium="Mixed Media on board" data-size="18 x 24in"
-        data-price="Not for sale" data-note="Sold — included here as part of the ongoing body of work.">
-        <div class="art-image" style="background-image: url('piece-02.jpg');"></div>
+        data-price="Sold" data-note="Sold — included here as part of the ongoing body of work.">
+        <img class="art-image" src="piece-02.jpg" alt="Guitar Man, mixed media on board, 2025" loading="lazy">
         <div class="placard">
           <div class="p-title">Guitar Man</div>
           <div class="p-meta">
@@ -427,10 +419,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="display"
+      <div class="art-card" data-status="display" tabindex="0" role="button"
         data-title="Trust Me" data-year="2026" data-medium="Oil on canvas" data-size="30 x 30in"
-        data-price="Not for sale" data-note="Sold">
-        <div class="art-image" style="background-image: url('piece-03.jpg');"></div>
+        data-price="Sold" data-note="Sold">
+        <img class="art-image" src="piece-03.jpg" alt="Trust Me, oil on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Trust Me</div>
           <div class="p-meta">
@@ -440,10 +432,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Underbelly" data-year="2025" data-medium="Oil on board" data-size="36 x 24in"
         data-price="$600" data-note="Study for a larger painting.">
-        <div class="art-image" style="background-image: url('piece-04.jpg');"></div>
+        <img class="art-image" src="piece-04.jpg" alt="Underbelly, oil on board, 2025" loading="lazy">
         <div class="placard">
           <div class="p-title">Underbelly</div>
           <div class="p-meta">
@@ -453,10 +445,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Awkward" data-year="2026" data-medium="Oil on canvas" data-size="30 x 24in"
         data-price="$750" data-note="Painted from a memory of myself at an amusement park.">
-        <div class="art-image" style="background-image: url('piece-05.jpg');"></div>
+        <img class="art-image" src="piece-05.jpg" alt="Awkward, oil on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Awkward</div>
           <div class="p-meta">
@@ -466,10 +458,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Potato Eaters" data-year="2026" data-medium="Mixed media on Canvas" data-size="28 x 22in"
         data-price="$400" data-note="The last painting of my most recent Exhibition In Response at Grand Forks Art Gallery.">
-        <div class="art-image" style="background-image: url('piece-06.jpg');"></div>
+        <img class="art-image" src="piece-06.jpg" alt="Potato Eaters, mixed media on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Potato Eaters</div>
           <div class="p-meta">
@@ -479,10 +471,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="display"
-        data-title="Untitled" data-year="2025" data-medium="Acrylic on Board" data-size="NA"
+      <div class="art-card" data-status="display" tabindex="0" role="button"
+        data-title="Untitled" data-year="2025" data-medium="Acrylic on Board" data-size=""
         data-price="Sold" data-note="Sold at an auction in early 2025. Finished in one fast session.">
-        <div class="art-image" style="background-image: url('piece-07.jpg');"></div>
+        <img class="art-image" src="piece-07.jpg" alt="Untitled, acrylic on board, 2025" loading="lazy">
         <div class="placard">
           <div class="p-title">Untitled</div>
           <div class="p-meta">
@@ -492,10 +484,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
-        data-title="Hugs for Myself" data-year="2026" data-medium="Oil on Canvas" data-size="64in x NA"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
+        data-title="Hugs for Myself" data-year="2026" data-medium="Oil on Canvas" data-size=""
         data-price="$2300" data-note="A collage of self portraits.">
-        <div class="art-image" style="background-image: url('piece-08.jpg');"></div>
+        <img class="art-image" src="piece-08.jpg" alt="Hugs for Myself, a collage of self portraits, oil on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Hugs for Myself</div>
           <div class="p-meta">
@@ -505,10 +497,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Between Palms" data-year="2025" data-medium="Oil on Canvas" data-size="57 x 47in"
         data-price="$2300" data-note="Layers of paintings, the longest I've spent on a painting.">
-        <div class="art-image" style="background-image: url('piece-09.jpg');"></div>
+        <img class="art-image" src="piece-09.jpg" alt="Between Palms, oil on canvas, 2025" loading="lazy">
         <div class="placard">
           <div class="p-title">Between Palms</div>
           <div class="p-meta">
@@ -518,10 +510,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Where I Keep You" data-year="2025" data-medium="Oil on Canvas" data-size="36 x 36in"
         data-price="$750" data-note="A study on Reflection, there is hair from my brush in the painting.">
-        <div class="art-image" style="background-image: url('piece-10.jpg');"></div>
+        <img class="art-image" src="piece-10.jpg" alt="Where I Keep You, oil on canvas, 2025" loading="lazy">
         <div class="placard">
           <div class="p-title">Where I Keep You</div>
           <div class="p-meta">
@@ -531,10 +523,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Untitled 1" data-year="2026" data-medium="Oil on Canvas" data-size="36 x 24in"
         data-price="$500" data-note="Made in January 2026.">
-        <div class="art-image" style="background-image: url('piece-12.jpg');"></div>
+        <img class="art-image" src="piece-12.jpg" alt="Untitled 1, oil on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Untitled 1</div>
           <div class="p-meta">
@@ -544,10 +536,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Erosion" data-year="2025" data-medium="Oil on Canvas" data-size="30 x 40in"
         data-price="$600" data-note="It started as a self portrait.">
-        <div class="art-image" style="background-image: url('piece-13.jpg');"></div>
+        <img class="art-image" src="piece-13.jpg" alt="Erosion, oil on canvas, 2025" loading="lazy">
         <div class="placard">
           <div class="p-title">Erosion</div>
           <div class="p-meta">
@@ -557,10 +549,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Untitled 2" data-year="2026" data-medium="Mixed Media on Canvas" data-size="24 x 30in"
         data-price="$500" data-note="Made in early 2026, spray paint, oil stick and oil paint on canvas.">
-        <div class="art-image" style="background-image: url('piece-14.jpg');"></div>
+        <img class="art-image" src="piece-14.jpg" alt="Untitled 2, mixed media on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Untitled 2</div>
           <div class="p-meta">
@@ -570,10 +562,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="We Need to Talk" data-year="2026" data-medium="Oil on Canvas" data-size="30 x 24in"
         data-price="$750" data-note="An encounter on canvas.">
-        <div class="art-image" style="background-image: url('piece-15.jpg');"></div>
+        <img class="art-image" src="piece-15.jpg" alt="We Need to Talk, oil on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">We Need to Talk</div>
           <div class="p-meta">
@@ -583,10 +575,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Sickeningly Sweet" data-year="2026" data-medium="Oil on Board" data-size="48 x 78in"
         data-price="$1500" data-note="One of the largest paintings I have made.">
-        <div class="art-image" style="background-image: url('piece-16.jpg');"></div>
+        <img class="art-image" src="piece-16.jpg" alt="Sickeningly Sweet, oil on board, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Sickeningly Sweet</div>
           <div class="p-meta">
@@ -596,10 +588,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="Beet Ruth" data-year="2026" data-medium="Mixed Media on Canvas" data-size="30 x 24in"
         data-price="$800" data-note="Made with oil and acrylic.">
-        <div class="art-image" style="background-image: url('piece-17.jpg');"></div>
+        <img class="art-image" src="piece-17.jpg" alt="Beet Ruth, mixed media on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">Beet Ruth</div>
           <div class="p-meta">
@@ -609,10 +601,10 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
         </div>
       </div>
 
-      <div class="art-card" data-status="forsale"
+      <div class="art-card" data-status="forsale" tabindex="0" role="button"
         data-title="On the Same Page" data-year="2026" data-medium="Mixed Media on Canvas" data-size="30 x 24in"
         data-price="$800" data-note="One of my favourites.">
-        <div class="art-image" style="background-image: url('piece-18.jpg');"></div>
+        <img class="art-image" src="piece-18.jpg" alt="On the Same Page, mixed media on canvas, 2026" loading="lazy">
         <div class="placard">
           <div class="p-title">On the Same Page</div>
           <div class="p-meta">
@@ -638,33 +630,35 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
     <div class="sketchbook-grid">
       <!-- Each block is one sketch/older piece. Copy to add more. Smaller, no price tags on purpose. -->
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-01.jpg');"></div>
+        <img class="sketch-image" src="sketch-01.jpg" alt="Pastel sketch, 2024" loading="lazy">
         <div class="sketch-caption">Pastel, 2024</div>
       </div>
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-02.jpg');"></div>
-        <div class="sketch-caption">Graphite,2022</div>
+        <img class="sketch-image" src="sketch-02.jpg" alt="Graphite sketch, 2022" loading="lazy">
+        <div class="sketch-caption">Graphite, 2022</div>
       </div>
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-03.jpg');"></div>
-        <div class="sketch-caption">Collage, Chine Colle, Monoprint, Stencil 2024</div>
+        <img class="sketch-image" src="sketch-03.jpg" alt="Collage, chine collé, monoprint and stencil work, 2024" loading="lazy">
+        <div class="sketch-caption">Collage, Chine Colle, Monoprint, Stencil, 2024</div>
       </div>
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-04.jpg');"></div>
+        <img class="sketch-image" src="sketch-04.jpg" alt="Chalk pastel drawing, 2022" loading="lazy">
         <div class="sketch-caption">Chalk Pastel, 2022</div>
-      </div>      
+      </div>
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-05.jpg');"></div>
+        <img class="sketch-image" src="sketch-05.jpg" alt="UV screen print, 2023" loading="lazy">
         <div class="sketch-caption">UV Screen Print, 2023</div>
-      </div>      
+      </div>
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-06.jpg');"></div>
-        <div class="sketch-caption">Chalk Pastel Oil Pastel, 2023</div>
-      </div>      
+        <img class="sketch-image" src="sketch-06.jpg" alt="Chalk pastel and oil pastel drawing, 2023" loading="lazy">
+        <div class="sketch-caption">Chalk Pastel, Oil Pastel, 2023</div>
+      </div>
       <div class="sketch-card">
-        <div class="sketch-image" style="background-image: url('sketch-07.jpg');"></div>
-        <div class="sketch-caption">Chine Colle, Monoprint 2024</div>
-      </div> 
+        <img class="sketch-image" src="sketch-07.jpg" alt="Chine collé and monoprint, 2024" loading="lazy">
+        <div class="sketch-caption">Chine Colle, Monoprint, 2024</div>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="section" id="exhibitions">
@@ -692,7 +686,7 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
 <section class="about" id="about">
   <div class="wrap section">
     <div class="about-grid">
-      <div class="about-image" style="background-image: url('piece-11.jpg'); background-size: cover; background-position: center;"></div>
+      <img class="about-image" src="piece-11.jpg" alt="Anna Semenoff" loading="lazy">
       <div class="about-text">
         <div class="eyebrow">About</div>
         <h2>Anna Semenoff</h2>
@@ -715,17 +709,18 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
       <form id="contactForm">
         <div class="field">
           <label for="name">Name</label>
-          <input type="text" id="name" required>
+          <input type="text" id="name" name="name" required>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" required>
+          <input type="email" id="email" name="email" required>
         </div>
         <div class="field">
           <label for="message">Message</label>
-          <textarea id="message" rows="4" required></textarea>
+          <textarea id="message" name="message" rows="4" required></textarea>
         </div>
         <button type="submit" class="btn primary">Send message</button>
+        <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
       </form>
       <div class="contact-direct">
         <div class="eyebrow">Direct</div>
@@ -740,13 +735,13 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
 <footer>
   <div class="wrap">
     <p>© <span id="year"></span> Anna Semenoff. All works shown remain the artist's property until sold.</p>
-    <p>Site Anna Semenoff</p>
+    <p>Kelowna, BC</p>
   </div>
 </footer>
 
-<div class="lightbox" id="lightbox">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
   <div class="lightbox-inner">
-    <div class="lightbox-img" id="lightboxImg"></div>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="">
     <div class="lightbox-info">
       <button class="lightbox-close" id="lightboxClose" aria-label="Close">✕</button>
       <h3 id="lbTitle"></h3>
@@ -763,8 +758,18 @@ footer p{ font-size:0.78rem; color: var(--ink-soft); }
 document.getElementById('year').textContent = new Date().getFullYear();
 
 // mobile nav toggle
-document.getElementById('navToggle').addEventListener('click', () => {
-  document.getElementById('navLinks').classList.toggle('open');
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => {
+  const open = navLinks.classList.toggle('open');
+  navToggle.setAttribute('aria-expanded', open);
+});
+// close the mobile menu after choosing a link
+navLinks.addEventListener('click', (e) => {
+  if (e.target.matches('a')) {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
 });
 
 // filters
@@ -782,32 +787,84 @@ document.getElementById('filters').addEventListener('click', (e) => {
 
 // lightbox
 const lightbox = document.getElementById('lightbox');
+const lightboxClose = document.getElementById('lightboxClose');
+let lastFocused = null;
+
+function openLightbox(card) {
+  const img = card.querySelector('.art-image');
+  const lbImg = document.getElementById('lightboxImg');
+  lbImg.src = img.getAttribute('src');
+  lbImg.alt = img.alt;
+  document.getElementById('lbTitle').textContent = card.dataset.title;
+
+  const size = (card.dataset.size || '').trim();
+  const lines = [`${card.dataset.year} — ${card.dataset.medium}`];
+  if (size && size.toUpperCase() !== 'NA') lines.push(size);
+  lines.push(card.dataset.price);
+  document.getElementById('lbMeta').innerHTML = lines.join('<br>');
+
+  document.getElementById('lbNote').textContent = card.dataset.note;
+  const cta = document.getElementById('lbCta');
+  cta.href = `mailto:annasemm2003@gmail.com?subject=${encodeURIComponent('Inquiry: ' + card.dataset.title)}`;
+  cta.textContent = card.dataset.status === 'display' ? 'Ask about this piece' : 'Inquire about this piece';
+
+  lastFocused = card;
+  lightbox.classList.add('open');
+  lightboxClose.focus();
+}
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  if (lastFocused) lastFocused.focus();
+}
+
 cards.forEach(card => {
-  card.addEventListener('click', () => {
-    const img = card.querySelector('.art-image').style.backgroundImage;
-    document.getElementById('lightboxImg').style.backgroundImage = img;
-    document.getElementById('lbTitle').textContent = card.dataset.title;
-    document.getElementById('lbMeta').innerHTML =
-      `${card.dataset.year} — ${card.dataset.medium}<br>${card.dataset.size}<br>${card.dataset.price}`;
-    document.getElementById('lbNote').textContent = card.dataset.note;
-    const cta = document.getElementById('lbCta');
-    cta.href = `mailto:annasemm2003@gmail.com?subject=Inquiry: ${encodeURIComponent(card.dataset.title)}`;
-    cta.textContent = card.dataset.status === 'display' ? 'Ask about this piece' : 'Inquire about this piece';
-    lightbox.classList.add('open');
+  card.addEventListener('click', () => openLightbox(card));
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openLightbox(card);
+    }
   });
 });
-document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
-lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
-document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+lightboxClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+});
 
-// contact form -> opens mail client with prefilled message
-document.getElementById('contactForm').addEventListener('submit', (e) => {
+// contact form
+// To send messages directly (no email app needed), sign up at formspree.io,
+// create a form, and paste its URL here, e.g. 'https://formspree.io/f/abcdwxyz'.
+// If left empty, the form falls back to opening the visitor's email app.
+const FORM_ENDPOINT = '';
+
+document.getElementById('contactForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
-  const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-  window.location.href = `mailto:annasemm2003@gmail.com?subject=Website inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(body)}`;
+  const form = e.target;
+  const status = document.getElementById('formStatus');
+  const name = form.name.value;
+  const email = form.email.value;
+  const message = form.message.value;
+
+  if (!FORM_ENDPOINT) {
+    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+    window.location.href = `mailto:annasemm2003@gmail.com?subject=${encodeURIComponent('Website inquiry from ' + name)}&body=${encodeURIComponent(body)}`;
+    return;
+  }
+
+  status.textContent = 'Sending…';
+  try {
+    const res = await fetch(FORM_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, message })
+    });
+    if (!res.ok) throw new Error('Request failed');
+    form.reset();
+    status.textContent = 'Thank you — your message has been sent.';
+  } catch (err) {
+    status.innerHTML = 'Sorry, something went wrong. Please email <a href="mailto:annasemm2003@gmail.com">annasemm2003@gmail.com</a> directly.';
+  }
 });
 </script>
 
